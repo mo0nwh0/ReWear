@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReWear | Sparkle Company</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="phone">
+    <section id="welcome" class="screen active center-screen">
+      <div class="leaf-logo">🌿</div>
+      <h1 class="logo">ReWear</h1>
+      <p class="subtitle">De Sparkle Company</p>
+      <div class="hero-card">
+        <div class="hero-img">👚👖🧥</div>
+        <p>Viste con propósito</p>
+      </div>
+      <button class="btn primary" onclick="showScreen('login')">Iniciar sesión</button>
+      <button class="btn light" onclick="showScreen('register')">Crear cuenta</button>
+      <p class="dots">● ● ●</p>
+    </section>
+
+    <section id="login" class="screen auth-screen">
+      <h2>Iniciar sesión</h2>
+      <p class="muted">Bienvenida de nuevo a ReWear 🌿</p>
+      <label>Correo</label>
+      <input id="loginEmail" type="email" placeholder="correo@gmail.com" />
+      <label>Contraseña</label>
+      <input id="loginPassword" type="password" placeholder="********" />
+      <button class="btn primary full" onclick="login()">Entrar</button>
+      <button class="link-btn" onclick="showScreen('register')">Crear una cuenta</button>
+    </section>
+
+    <section id="register" class="screen auth-screen">
+      <h2>Crear cuenta</h2>
+      <p class="muted">Únete a ReWear 🌿</p>
+      <label>Nombre</label>
+      <input id="registerName" type="text" placeholder="Tu nombre" />
+      <label>Correo</label>
+      <input id="registerEmail" type="email" placeholder="correo@gmail.com" />
+      <label>Contraseña</label>
+      <input id="registerPassword" type="password" placeholder="********" />
+      <button class="btn primary full" onclick="register()">Crear cuenta</button>
+      <button class="link-btn" onclick="showScreen('login')">Ya tengo cuenta</button>
+    </section>
+
+    <section id="home" class="screen with-nav">
+      <h2 id="homeName">Hola 👋</h2>
+      <p class="muted">Cada decisión cuenta 🌿</p>
+      <article class="card glow">
+        <h3>✨ Spark Points</h3>
+        <p id="homePoints" class="points">0</p>
+        <p id="homeLevel">Nivel: Eco Rookie</p>
+        <progress id="homeProgress" value="0" max="500"></progress>
+      </article>
+      <article class="card green-soft">
+        <span class="pill">Reto del día</span>
+        <h3>No compres ropa por impulso durante 24 horas</h3>
+        <p>Recompensa: +50 Spark Points</p>
+        <button id="dailyBtn" class="btn primary" onclick="completeDailyChallenge()">Completar reto</button>
+      </article>
+      <div class="stats-grid">
+        <article class="card"><h3>💧</h3><p id="homeWater" class="points">0 L</p><span>Agua</span></article>
+        <article class="card"><h3>☁️</h3><p id="homeCo2" class="points">0 kg</p><span>CO₂</span></article>
+        <article class="card"><h3>👕</h3><p id="homeClothes" class="points">0</p><span>Prendas</span></article>
+        <article class="card"><h3>💰</h3><p id="homeMoney" class="points">S/. 0</p><span>Ahorro</span></article>
+      </div>
+      <article class="card tip">💡 ¿Sabías que una camiseta de algodón puede usar hasta 2,700 litros de agua para producirse?</article>
+    </section>
+
+    <section id="closet" class="screen with-nav">
+      <h2>👕 Mi Clóset</h2>
+      <p class="muted">Registra la ropa que ya tienes antes de comprar otra.</p>
+      <div class="form-card">
+        <input id="clothingName" type="text" placeholder="Ej: Polo verde" />
+        <select id="clothingCategory">
+          <option value="Polo">Polo</option>
+          <option value="Pantalón">Pantalón</option>
+          <option value="Casaca">Casaca</option>
+          <option value="Vestido">Vestido</option>
+          <option value="Zapatos">Zapatos</option>
+          <option value="Accesorio">Accesorio</option>
+        </select>
+        <input id="clothingColor" type="text" placeholder="Color" />
+        <button class="btn primary full" onclick="addClothing()">Agregar prenda</button>
+      </div>
+      <div id="closetAdvice" class="advice hidden"></div>
+      <div id="clothesList" class="closet-list"></div>
+    </section>
+
+    <section id="challenges" class="screen with-nav">
+      <h2>🎯 Retos</h2>
+      <p class="muted">Completa retos, gana Spark Points y desbloquea premios.</p>
+      <div id="challengesList"></div>
+    </section>
+
+    <section id="impact" class="screen with-nav">
+      <h2>🌍 Mi impacto</h2>
+      <p class="muted">Mira cómo tus decisiones ayudan al planeta.</p>
+      <div class="impact-cards">
+        <article class="card"><h3>💧 Agua ahorrada</h3><p id="impactPageWater" class="points">0 L</p></article>
+        <article class="card green-soft"><h3>☁️ CO₂ evitado</h3><p id="impactPageCo2" class="points">0 kg</p></article>
+        <article class="card"><h3>👕 Prendas no compradas</h3><p id="impactPageClothes" class="points">0</p></article>
+        <article class="card brown"><h3>💰 Dinero ahorrado</h3><p id="impactPageMoney" class="points">S/. 0</p></article>
+      </div>
+    </section>
+
+    <section id="rewards" class="screen with-nav">
+      <h2>🎁 Recompensas</h2>
+      <p class="muted">Canjea tus Spark Points por beneficios.</p>
+      <p class="mini-points">Tus puntos: <b id="rewardPoints">0</b></p>
+      <div id="rewardsList"></div>
+    </section>
+
+    <section id="stores" class="screen with-nav">
+      <h2>📍 Tiendas sostenibles</h2>
+      <p class="muted">Encuentra tiendas de segunda mano en Lima y Callao.</p>
+      <div class="filter-row">
+        <button onclick="renderStores('Todas')">Todas</button>
+        <button onclick="renderStores('Lima')">Lima</button>
+        <button onclick="renderStores('Callao')">Callao</button>
+      </div>
+      <div id="storesList"></div>
+    </section>
+
+    <section id="profile" class="screen with-nav">
+      <h2>👤 Perfil</h2>
+      <p class="muted">Tu progreso en ReWear</p>
+      <article class="profile-card">
+        <div class="avatar">🌿</div>
+        <h3 id="profileName">Usuari@</h3>
+        <p id="profileLevel">Eco Rookie</p>
+        <b id="profilePoints">0 Spark Points</b>
+      </article>
+      <article class="card"><h3>🏅 Logros</h3><p id="achievements"></p></article>
+      <button class="btn secondary full" onclick="showScreen('rewards')">Ver recompensas</button>
+      <button class="btn primary full" onclick="logout()">Cerrar sesión</button>
+    </section>
+
+    <nav id="bottomNav" class="bottom-nav hidden">
+      <button onclick="showScreen('home')">🏠<span>Inicio</span></button>
+      <button onclick="showScreen('closet')">👕<span>Clóset</span></button>
+      <button onclick="showScreen('challenges')">🎯<span>Retos</span></button>
+      <button onclick="showScreen('stores')">📍<span>Tiendas</span></button>
+      <button onclick="showScreen('profile')">👤<span>Perfil</span></button>
+    </nav>
+  </main>
+  <script src="js/app.js"></script>
+</body>
+</html>
